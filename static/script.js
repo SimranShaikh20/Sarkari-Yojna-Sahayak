@@ -66,6 +66,7 @@ const loading = document.getElementById('loading');
 const errorMessage = document.getElementById('error-message');
 const errorText = document.getElementById('error-text');
 const speakBtn = document.getElementById('speak-btn');
+const stopSpeechBtn = document.getElementById('stop-speech-btn');
 const sampleButtons = document.querySelectorAll('.sample-btn');
 
 // Initialize speech recognition
@@ -295,20 +296,20 @@ function speakText(text) {
             
             currentUtterance.onstart = function() {
                 console.log('Speech started');
-                speakBtn.innerHTML = '<i class="fas fa-stop"></i>';
-                speakBtn.title = 'Stop speaking';
+                speakBtn.style.display = 'none';
+                stopSpeechBtn.style.display = 'flex';
             };
             
             currentUtterance.onend = function() {
                 console.log('Speech ended');
-                speakBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-                speakBtn.title = 'Listen to response';
+                speakBtn.style.display = 'flex';
+                stopSpeechBtn.style.display = 'none';
             };
             
             currentUtterance.onerror = function(event) {
                 console.error('Speech error:', event.error);
-                speakBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-                speakBtn.title = 'Listen to response';
+                speakBtn.style.display = 'flex';
+                stopSpeechBtn.style.display = 'none';
             };
             
             // Try to speak
@@ -393,13 +394,18 @@ languageSelect.addEventListener('change', (e) => {
 });
 
 speakBtn.addEventListener('click', () => {
+    const text = aiText.textContent;
+    if (text) {
+        speakText(text);
+    }
+});
+
+stopSpeechBtn.addEventListener('click', () => {
     if (synthesis.speaking) {
         synthesis.cancel();
-    } else {
-        const text = aiText.textContent;
-        if (text) {
-            speakText(text);
-        }
+        speakBtn.style.display = 'flex';
+        stopSpeechBtn.style.display = 'none';
+        console.log('Speech manually stopped');
     }
 });
 

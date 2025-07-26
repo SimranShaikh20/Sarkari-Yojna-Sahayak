@@ -88,14 +88,13 @@ def search_local_schemes(query, language='english'):
         category = scheme.get('category', '')
         for key_category, keywords in scheme_keywords.items():
             if any(keyword in query_lower for keyword in keywords):
-                if category in ['agriculture', 'housing', 'health', 'women', 'social_security', 'education']:
-                    if (category == 'agriculture' and any(k in keywords for k in ['kisan', 'farmer', 'fasal', 'crop'])) or \
-                       (category == 'housing' and any(k in keywords for k in ['awas', 'housing', 'house'])) or \
-                       (category == 'health' and any(k in keywords for k in ['ayushman', 'health', 'medical'])) or \
-                       (category == 'women' and any(k in keywords for k in ['matru', 'beti', 'girl', 'pregnant'])) or \
-                       (category == 'social_security' and any(k in keywords for k in ['pension', 'elderly', 'widow'])):
-                        matching_schemes.append(scheme)
-                        break
+                if (category == 'agriculture' and any(k in query_lower for k in ['kisan', 'farmer', 'fasal', 'crop', 'किसान', 'खेती', 'फसल'])) or \
+                   (category == 'housing' and any(k in query_lower for k in ['awas', 'housing', 'house', 'makan', 'आवास', 'मकान'])) or \
+                   (category == 'health' and any(k in query_lower for k in ['ayushman', 'health', 'medical', 'स्वास्थ्य', 'आयुष्मान'])) or \
+                   (category == 'women' and any(k in query_lower for k in ['matru', 'beti', 'girl', 'pregnant', 'मातृ', 'बेटी', 'गर्भवती'])) or \
+                   (category == 'social_security' and any(k in query_lower for k in ['pension', 'elderly', 'widow', 'पेंशन', 'बुजुर्ग', 'विधवा'])):
+                    matching_schemes.append(scheme)
+                    break
     
     # Remove duplicates
     seen = set()
@@ -166,15 +165,31 @@ def handle_query():
         local_schemes = search_local_schemes(query, language)
         
         if local_schemes:
-            # Format local scheme response
+            # Format local scheme response in selected language only
             scheme = local_schemes[0]  # Return first match
+            
+            if language == 'hindi':
+                scheme_name = scheme.get('scheme_name_hindi', scheme.get('scheme_name', 'N/A'))
+                eligibility = scheme.get('eligibility_hindi', 'जानकारी उपलब्ध नहीं')
+                benefits = scheme.get('benefits_hindi', 'जानकारी उपलब्ध नहीं')
+                how_to_apply = scheme.get('how_to_apply_hindi', 'जानकारी उपलब्ध नहीं')
+                response = f"योजना का नाम: {scheme_name}\n\nपात्रता: {eligibility}\n\nलाभ: {benefits}\n\nआवेदन कैसे करें: {how_to_apply}"
+            elif language == 'gujarati':
+                scheme_name = scheme.get('scheme_name_gujarati', scheme.get('scheme_name', 'N/A'))
+                eligibility = scheme.get('eligibility_gujarati', 'માહિતી ઉપલબ્ધ નથી')
+                benefits = scheme.get('benefits_gujarati', 'માહિતી ઉપલબ્ધ નથી')
+                how_to_apply = scheme.get('how_to_apply_gujarati', 'માહિતી ઉપલબ્ધ નથી')
+                response = f"યોજનાનું નામ: {scheme_name}\n\nપાત્રતા: {eligibility}\n\nફાયદા: {benefits}\n\nઅરજી કેવી રીતે કરવી: {how_to_apply}"
+            else:  # English
+                response = f"Scheme Name: {scheme.get('scheme_name', 'N/A')}\n\nEligibility: {scheme.get('eligibility', 'Information not available')}\n\nBenefits: {scheme.get('benefits', 'Information not available')}\n\nHow to Apply: {scheme.get('how_to_apply', 'Information not available')}"
+            
             response_templates = {
-                'hindi': f"योजना का नाम: {scheme.get('scheme_name', 'N/A')}\n\nपात्रता: {scheme.get('eligibility', 'जानकारी उपलब्ध नहीं')}\n\nलाभ: {scheme.get('benefits', 'जानकारी उपलब्ध नहीं')}\n\nआवेदन कैसे करें: {scheme.get('how_to_apply', 'जानकारी उपलब्ध नहीं')}",
-                'english': f"Scheme Name: {scheme.get('scheme_name', 'N/A')}\n\nEligibility: {scheme.get('eligibility', 'Information not available')}\n\nBenefits: {scheme.get('benefits', 'Information not available')}\n\nHow to Apply: {scheme.get('how_to_apply', 'Information not available')}",
-                'gujarati': f"યોજનાનું નામ: {scheme.get('scheme_name', 'N/A')}\n\nપાત્રતા: {scheme.get('eligibility', 'માહિતી ઉપલબ્ધ નથી')}\n\nફાયદા: {scheme.get('benefits', 'માહિતી ઉપલબ્ધ નથી')}\n\nઅરજી કેવી રીતે કરવી: {scheme.get('how_to_apply', 'માહિતી ઉપલબ્ધ નથી')}"
+                'hindi': response if language == 'hindi' else None,
+                'english': response if language == 'english' else None,
+                'gujarati': response if language == 'gujarati' else None
             }
             
-            response = response_templates.get(language, response_templates['english'])
+            final_response = response
             
             return jsonify({
                 'response': response,

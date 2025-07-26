@@ -105,9 +105,14 @@
                 <div class="message-header">
                     <i class="fas fa-robot"></i>
                     <span>सरकारी योजना सहायक</span>
-                    <button id="speak-btn" class="speak-button" title="Listen to response">
-                        <i class="fas fa-volume-up"></i>
-                    </button>
+                    <div class="voice-controls">
+                        <button id="speak-btn" class="speak-button" title="Listen to response">
+                            <i class="fas fa-volume-up"></i>
+                        </button>
+                        <button id="stop-speech-btn" class="stop-speech-button" title="Stop speaking" style="display: none;">
+                            <i class="fas fa-stop"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="message-content" id="ai-text"></div>
                 <div class="source-indicator" id="source-indicator"></div>
