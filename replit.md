@@ -93,3 +93,26 @@ The application follows a simple client-server architecture with a Flask backend
 - **Caching Strategy**: Potential for implementing response caching to improve performance
 
 The application is designed to be easily deployable on platforms like Replit, Heroku, or similar cloud platforms with minimal configuration requirements.
+
+## Recent Changes
+
+### July 26, 2025
+- **Text Input Functionality**: Added dual input mode with toggle between voice and text input
+- **Enhanced Voice Support**: Improved Gujarati text-to-speech with Hindi voice fallback for better pronunciation
+- **Language-Specific Placeholders**: Dynamic placeholder text in Hindi, English, and Gujarati for text input
+- **Comprehensive Documentation**: Created detailed README.md with architecture diagrams, flow charts, and complete feature documentation
+- **UI Improvements**: Added glassmorphism design elements and responsive mode switching buttons
+- **Voice Control Enhancements**: Implemented stop, replay, and pause functionality for speech synthesis
+
+## Documentation Status
+
+The project now includes comprehensive documentation covering:
+- Complete system architecture with visual diagrams
+- Data flow diagrams showing query processing pipeline
+- Component architecture breakdown
+- Installation and deployment instructions
+- API reference with request/response examples
+- Government schemes database documentation
+- UI/UX feature descriptions
+- Browser compatibility matrix
+- Configuration options and environment variables
