@@ -226,48 +226,101 @@ function displayAIResponse(response, source) {
     aiMessage.style.display = 'block';
     scrollToBottom();
     
-    // Auto-speak the response
-    speakText(response);
+    // Auto-speak the response with a slight delay to ensure DOM is ready
+    setTimeout(() => {
+        speakText(response);
+    }, 500);
 }
 
 // Text-to-speech function
 function speakText(text) {
+    console.log('Attempting to speak text:', text);
+    console.log('Current language:', currentLanguage);
+    
     // Stop any current speech
     if (synthesis.speaking) {
         synthesis.cancel();
     }
     
-    if (text) {
-        currentUtterance = new SpeechSynthesisUtterance(text);
-        currentUtterance.lang = LANGUAGES[currentLanguage].voice_lang;
-        currentUtterance.rate = 0.9;
-        currentUtterance.pitch = 1;
-        currentUtterance.volume = 1;
-        
-        // Find appropriate voice
-        const voices = synthesis.getVoices();
-        const targetLang = LANGUAGES[currentLanguage].voice_lang;
-        
-        const voice = voices.find(v => 
-            v.lang.startsWith(targetLang.split('-')[0]) || 
-            v.lang === targetLang
-        );
-        
-        if (voice) {
-            currentUtterance.voice = voice;
-        }
-        
-        currentUtterance.onstart = function() {
-            speakBtn.innerHTML = '<i class="fas fa-stop"></i>';
-            speakBtn.title = 'Stop speaking';
-        };
-        
-        currentUtterance.onend = function() {
-            speakBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
-            speakBtn.title = 'Listen to response';
-        };
-        
-        synthesis.speak(currentUtterance);
+    if (text && text.trim()) {
+        // Wait a moment for voices to be available
+        setTimeout(() => {
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.lang = LANGUAGES[currentLanguage].voice_lang;
+            currentUtterance.rate = 0.8;
+            currentUtterance.pitch = 1;
+            currentUtterance.volume = 1;
+            
+            // Get all available voices
+            const voices = synthesis.getVoices();
+            console.log('Available voices:', voices.length);
+            
+            const targetLang = LANGUAGES[currentLanguage].voice_lang;
+            console.log('Target language:', targetLang);
+            
+            // Try to find the best voice for the language
+            let voice = null;
+            
+            // First try exact match
+            voice = voices.find(v => v.lang === targetLang);
+            
+            // If no exact match, try language prefix (e.g., 'hi' from 'hi-IN')
+            if (!voice) {
+                const langPrefix = targetLang.split('-')[0];
+                voice = voices.find(v => v.lang.startsWith(langPrefix));
+            }
+            
+            // If still no match, try to find any voice that contains the language
+            if (!voice) {
+                const langPrefix = targetLang.split('-')[0];
+                voice = voices.find(v => v.lang.toLowerCase().includes(langPrefix));
+            }
+            
+            // For Hindi, also try 'en-IN' as fallback
+            if (!voice && currentLanguage === 'hindi') {
+                voice = voices.find(v => v.lang === 'en-IN' || v.lang.startsWith('en'));
+            }
+            
+            // Default to any available voice if none found
+            if (!voice && voices.length > 0) {
+                voice = voices[0];
+            }
+            
+            if (voice) {
+                currentUtterance.voice = voice;
+                console.log('Selected voice:', voice.name, voice.lang);
+            } else {
+                console.log('No suitable voice found, using default');
+            }
+            
+            currentUtterance.onstart = function() {
+                console.log('Speech started');
+                speakBtn.innerHTML = '<i class="fas fa-stop"></i>';
+                speakBtn.title = 'Stop speaking';
+            };
+            
+            currentUtterance.onend = function() {
+                console.log('Speech ended');
+                speakBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                speakBtn.title = 'Listen to response';
+            };
+            
+            currentUtterance.onerror = function(event) {
+                console.error('Speech error:', event.error);
+                speakBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+                speakBtn.title = 'Listen to response';
+            };
+            
+            // Try to speak
+            try {
+                synthesis.speak(currentUtterance);
+                console.log('Speech synthesis started');
+            } catch (error) {
+                console.error('Error starting speech synthesis:', error);
+            }
+        }, 100);
+    } else {
+        console.log('No text to speak');
     }
 }
 
@@ -361,17 +414,32 @@ sampleButtons.forEach(btn => {
     });
 });
 
+// Initialize voices for TTS
+function initializeVoices() {
+    const voices = synthesis.getVoices();
+    console.log('Initializing voices. Available:', voices.length);
+    
+    if (voices.length === 0) {
+        // Voices not loaded yet, wait for them
+        if (synthesis.onvoiceschanged !== undefined) {
+            synthesis.onvoiceschanged = () => {
+                const newVoices = synthesis.getVoices();
+                console.log('Voices loaded:', newVoices.length);
+                if (newVoices.length > 0) {
+                    console.log('Voice samples:', newVoices.slice(0, 5).map(v => `${v.name} (${v.lang})`));
+                }
+            };
+        }
+    } else {
+        console.log('Voice samples:', voices.slice(0, 5).map(v => `${v.name} (${v.lang})`));
+    }
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
     initSpeechRecognition();
     updateSampleQuestions();
-    
-    // Load voices (for TTS)
-    if (synthesis.onvoiceschanged !== undefined) {
-        synthesis.onvoiceschanged = () => {
-            console.log('Voices loaded:', synthesis.getVoices().length);
-        };
-    }
+    initializeVoices();
     
     // Set initial status
     voiceStatus.textContent = getLocalizedText('clickToSpeak');
