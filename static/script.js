@@ -69,6 +69,17 @@ const speakBtn = document.getElementById('speak-btn');
 const stopSpeechBtn = document.getElementById('stop-speech-btn');
 const sampleButtons = document.querySelectorAll('.sample-btn');
 
+// Text input elements
+const voiceModeBtn = document.getElementById('voice-mode-btn');
+const textModeBtn = document.getElementById('text-mode-btn');
+const textInputContainer = document.getElementById('text-input-container');
+const textQueryInput = document.getElementById('text-query-input');
+const sendTextBtn = document.getElementById('send-text-btn');
+const voiceInterface = document.querySelector('.voice-interface');
+
+// Current input mode
+let inputMode = 'voice'; // 'voice' or 'text'
+
 // Initialize speech recognition
 function initSpeechRecognition() {
     if ('webkitSpeechRecognition' in window) {
@@ -277,9 +288,26 @@ function speakText(text) {
                 voice = voices.find(v => v.lang.toLowerCase().includes(langPrefix));
             }
             
-            // For Hindi, also try 'en-IN' as fallback
-            if (!voice && currentLanguage === 'hindi') {
-                voice = voices.find(v => v.lang === 'en-IN' || v.lang.startsWith('en'));
+            // Language-specific fallbacks
+            if (!voice) {
+                if (currentLanguage === 'hindi') {
+                    voice = voices.find(v => v.lang === 'en-IN' || v.lang.startsWith('en'));
+                } else if (currentLanguage === 'gujarati') {
+                    // For Gujarati, try better fallbacks in order:
+                    // 1. Hindi voice (most compatible for Devanagari)
+                    // 2. English-India voice 
+                    // 3. Any English voice
+                    voice = voices.find(v => v.lang === 'hi-IN' || v.lang.startsWith('hi')) || 
+                           voices.find(v => v.lang === 'en-IN') ||
+                           voices.find(v => v.lang.startsWith('en') && v.name.includes('India')) ||
+                           voices.find(v => v.lang.startsWith('en'));
+                    
+                    // If still no voice found, log available voices for debugging
+                    if (!voice) {
+                        console.log('No suitable voice found for Gujarati. Available voices:', 
+                                  voices.map(v => `${v.name} (${v.lang})`));
+                    }
+                }
             }
             
             // Default to any available voice if none found
@@ -386,6 +414,7 @@ languageSelect.addEventListener('change', (e) => {
     currentLanguage = e.target.value;
     voiceStatus.textContent = getLocalizedText('clickToSpeak');
     updateSampleQuestions();
+    updatePlaceholderText();
     
     // Update recognition language if recording
     if (recognition) {
@@ -420,6 +449,63 @@ sampleButtons.forEach(btn => {
     });
 });
 
+// Text input event listeners
+voiceModeBtn.addEventListener('click', () => switchInputMode('voice'));
+textModeBtn.addEventListener('click', () => switchInputMode('text'));
+sendTextBtn.addEventListener('click', handleTextSubmission);
+textQueryInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        handleTextSubmission();
+    }
+});
+
+// Input mode switching
+function switchInputMode(mode) {
+    inputMode = mode;
+    
+    if (mode === 'voice') {
+        voiceModeBtn.classList.add('active');
+        textModeBtn.classList.remove('active');
+        voiceInterface.style.display = 'block';
+        textInputContainer.style.display = 'none';
+    } else {
+        textModeBtn.classList.add('active');
+        voiceModeBtn.classList.remove('active');
+        voiceInterface.style.display = 'none';
+        textInputContainer.style.display = 'block';
+        textQueryInput.focus();
+    }
+}
+
+// Handle text input submission
+function handleTextSubmission() {
+    const query = textQueryInput.value.trim();
+    if (!query) return;
+    
+    sendTextBtn.disabled = true;
+    displayUserMessage(query);
+    processQuery(query);
+    textQueryInput.value = '';
+    
+    // Re-enable button after processing
+    setTimeout(() => {
+        sendTextBtn.disabled = false;
+    }, 1000);
+}
+
+// Update placeholder text based on language
+function updatePlaceholderText() {
+    const placeholders = {
+        english: "Type your question about government schemes...",
+        hindi: "सरकारी योजनाओं के बारे में अपना सवाल लिखें...",
+        gujarati: "સરકારી યોજનાઓ વિશે તમારો પ્રશ્ન લખો..."
+    };
+    
+    if (textQueryInput) {
+        textQueryInput.placeholder = placeholders[currentLanguage] || placeholders.english;
+    }
+}
+
 // Initialize voices for TTS
 function initializeVoices() {
     const voices = synthesis.getVoices();
@@ -445,6 +531,7 @@ function initializeVoices() {
 document.addEventListener('DOMContentLoaded', () => {
     initSpeechRecognition();
     updateSampleQuestions();
+    updatePlaceholderText();
     initializeVoices();
     
     // Set initial status

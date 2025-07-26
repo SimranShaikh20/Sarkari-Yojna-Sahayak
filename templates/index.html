@@ -55,6 +55,35 @@
             </div>
         </div>
 
+        <!-- Text Input Alternative -->
+        <div class="text-input-section">
+            <div class="input-method-toggle">
+                <button id="voice-mode-btn" class="mode-btn active">
+                    <i class="fas fa-microphone"></i>
+                    Voice Input
+                </button>
+                <button id="text-mode-btn" class="mode-btn">
+                    <i class="fas fa-keyboard"></i>
+                    Text Input
+                </button>
+            </div>
+            
+            <div class="text-input-container" id="text-input-container" style="display: none;">
+                <div class="input-group">
+                    <input type="text" id="text-query-input" placeholder="Type your question about government schemes..." />
+                    <button id="send-text-btn" class="send-button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="text-help">
+                    <small>
+                        <i class="fas fa-info-circle"></i>
+                        Type your question and press Enter or click send button
+                    </small>
+                </div>
+            </div>
+        </div>
+
         <!-- Sample Questions -->
         <div class="sample-questions">
             <h3>

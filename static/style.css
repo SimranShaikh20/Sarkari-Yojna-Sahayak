@@ -237,6 +237,132 @@ body {
     font-size: 0.8rem;
 }
 
+/* Text Input Section */
+.text-input-section {
+    margin-bottom: 40px;
+}
+
+.input-method-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.mode-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(79, 195, 247, 0.3);
+    border-radius: 25px;
+    padding: 12px 20px;
+    color: #b0bec5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 140px;
+    justify-content: center;
+}
+
+.mode-btn:hover {
+    border-color: #4fc3f7;
+    background: rgba(79, 195, 247, 0.1);
+}
+
+.mode-btn.active {
+    background: rgba(79, 195, 247, 0.2);
+    border-color: #4fc3f7;
+    color: #4fc3f7;
+}
+
+.mode-btn i {
+    font-size: 1rem;
+}
+
+.text-input-container {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#text-query-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(79, 195, 247, 0.3);
+    border-radius: 12px;
+    padding: 15px 20px;
+    color: #e0e6ed;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+#text-query-input:focus {
+    outline: none;
+    border-color: #4fc3f7;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 10px rgba(79, 195, 247, 0.3);
+}
+
+#text-query-input::placeholder {
+    color: #78909c;
+}
+
+.send-button {
+    background: linear-gradient(45deg, #4fc3f7, #29b6f6);
+    border: none;
+    border-radius: 12px;
+    padding: 15px 20px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    min-width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(79, 195, 247, 0.3);
+}
+
+.send-button:active {
+    transform: scale(0.95);
+}
+
+.send-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.text-help {
+    text-align: center;
+}
+
+.text-help small {
+    color: #78909c;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+.text-help i {
+    font-size: 0.8rem;
+    color: #4fc3f7;
+}
+
 /* Sample Questions */
 .sample-questions {
     background: rgba(255, 255, 255, 0.05);
