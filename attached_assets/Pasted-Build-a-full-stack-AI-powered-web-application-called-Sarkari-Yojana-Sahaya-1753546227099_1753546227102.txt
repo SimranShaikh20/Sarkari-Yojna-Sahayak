@@ -1,0 +1,92 @@
+Build a full-stack AI-powered web application called **"सरकारी योजना सहायक"** (Sarkari Yojana Sahayak) – a **voice-based multilingual assistant** that helps users query and understand government schemes in **Hindi**, **English**, and **Gujarati**.
+
+---
+
+### ✅ CORE FEATURES:
+
+1. 🎙️ **Voice Input**  
+   - Allow users to ask questions using their voice via browser mic.
+   - Support recognition in Hindi (`hi-IN`), English (`en-IN`), and Gujarati (`gu-IN`) using the Web Speech API.
+
+2. 🌐 **Language Selection Dropdown**  
+   - Provide a dropdown to switch between Hindi, English, and Gujarati.
+   - Dynamically change:
+     - The **input recognition language**
+     - The **text response language**
+     - The **voice (TTS) language**
+
+3. 💬 **Text Display**  
+   - Display transcribed voice input as text on screen.
+   - Display the AI’s reply in the selected language.
+
+4. 🔊 **Text-to-Speech (TTS)**  
+   - Use browser's native `SpeechSynthesisUtterance` to speak the AI-generated response in selected language.
+   - Response should sound natural and play immediately after the reply is shown.
+
+5. 🤖 **Groq API (Mixtral Model)**  
+   - Use Groq's Mixtral LLM to generate intelligent answers.
+   - Always respond in the selected language (add system prompt: “Answer in Gujarati” or Hindi etc. as needed).
+   - Store the API key securely in `.env` using `GROQ_API_KEY`.
+
+6. 🧠 **Scheme Knowledge from Official Sources**  
+   - Include a mechanism to check the user’s query against a local file (`schemes.json`) or scrape real-time data from:
+     - https://www.myscheme.gov.in/
+     - https://india.gov.in/
+   - If a matching scheme is found, return its official data instead of querying Groq.
+   - Fields to use: `scheme_name`, `eligibility`, `benefits`, `how_to_apply`, `official_link`.
+
+7. 🔘 **Preset Sample Questions**  
+   - Add a few quick-action buttons with sample queries like:
+     - "मुझे विधवा पेंशन योजना की जानकारी चाहिए"
+     - "Scholarships for girls in Gujarat"
+     - "किसानों के लिए सरकारी योजना"
+
+---
+
+### 📁 FILE STRUCTURE:
+
+project/
+├── app.py # Flask backend
+├── static/
+│ └── script.js # Voice recognition + frontend logic
+├── templates/
+│ └── index.html # UI layout
+├── schemes.json # Static scheme data (optional fallback)
+├── .env # Stores GROQ_API_KEY
+├── requirements.txt # Python dependencies
+
+yaml
+Copy
+Edit
+
+---
+
+### 💻 TECH STACK:
+- **Frontend**: HTML, CSS (Dark Theme), Vanilla JavaScript
+- **Backend**: Python with Flask
+- **AI Model**: Groq (Mixtral-8x7b)
+- **Voice Input/Output**: Web Speech API (`webkitSpeechRecognition`, `SpeechSynthesisUtterance`)
+- **Deployment**: Replit (free version) or Render (for production)
+
+---
+
+### 🚫 DO NOT INCLUDE:
+- No Twilio, no WhatsApp integration
+- No Google Cloud TTS or paid APIs
+- No user login/registration required
+
+---
+
+### ✅ DESIRED USER EXPERIENCE:
+
+1. User selects language (Hindi / English / Gujarati).
+2. Clicks on microphone button and speaks a scheme-related query.
+3. Transcribed query is shown on screen in selected language.
+4. App checks local/official data for a match:
+   - If matched: show & speak the answer.
+   - If not: send query to Groq Mixtral model and get intelligent answer in selected language.
+5. AI response is both **spoken aloud** and **displayed** as plain text.
+
+---
+
+Build this as a responsive, accessible web app that looks clean and works well on desktop and mobile.
