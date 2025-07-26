@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>सरकारी योजना सहायक | Sarkari Yojana Sahayak</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                <h1>सरकारी योजना सहायक</h1>
+                <p class="subtitle">Government Scheme Assistant</p>
+            </div>
+        </header>
+
+        <!-- Language Selector -->
+        <div class="language-selector">
+            <label for="language-select">
+                <i class="fas fa-language"></i>
+                भाषा चुनें / Choose Language / ભાષા પસંદ કરો:
+            </label>
+            <select id="language-select">
+                <option value="english">English</option>
+                <option value="hindi">हिंदी</option>
+                <option value="gujarati">ગુજરાતી</option>
+            </select>
+        </div>
+
+        <!-- Voice Interface -->
+        <div class="voice-interface">
+            <div class="microphone-container">
+                <button id="mic-btn" class="mic-button" title="Click to speak">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <div class="recording-indicator" id="recording-indicator">
+                    <div class="pulse"></div>
+                    <span>Listening...</span>
+                </div>
+            </div>
+            
+            <div class="voice-status" id="voice-status">
+                Click the microphone to ask about government schemes
+            </div>
+        </div>
+
+        <!-- Sample Questions -->
+        <div class="sample-questions">
+            <h3>
+                <i class="fas fa-question-circle"></i>
+                Sample Questions / नमूना प्रश्न / નમૂના પ્રશ્નો
+            </h3>
+            <div class="question-buttons">
+                <button class="sample-btn" data-question="Tell me about PM Kisan scheme">
+                    <i class="fas fa-seedling"></i>
+                    PM Kisan Scheme
+                </button>
+                <button class="sample-btn" data-question="मुझे विधवा पेंशन योजना की जानकारी चाहिए">
+                    <i class="fas fa-heart"></i>
+                    विधवा पेंशन योजना
+                </button>
+                <button class="sample-btn" data-question="किसानों के लिए सरकारी योजना बताइए">
+                    <i class="fas fa-tractor"></i>
+                    किसान योजनाएं
+                </button>
+                <button class="sample-btn" data-question="Scholarships for girls in Gujarat">
+                    <i class="fas fa-graduation-cap"></i>
+                    Girl Scholarships
+                </button>
+                <button class="sample-btn" data-question="આયુષ્માન ભારત યોજના વિશે જણાવો">
+                    <i class="fas fa-medkit"></i>
+                    આયુષ્માન ભારત
+                </button>
+                <button class="sample-btn" data-question="Housing scheme for poor families">
+                    <i class="fas fa-home"></i>
+                    Housing Schemes
+                </button>
+            </div>
+        </div>
+
+        <!-- Conversation Area -->
+        <div class="conversation-area">
+            <!-- User Input Display -->
+            <div class="user-message" id="user-message" style="display: none;">
+                <div class="message-header">
+                    <i class="fas fa-user"></i>
+                    <span>Your Question</span>
+                </div>
+                <div class="message-content" id="user-text"></div>
+            </div>
+
+            <!-- AI Response Display -->
+            <div class="ai-message" id="ai-message" style="display: none;">
+                <div class="message-header">
+                    <i class="fas fa-robot"></i>
+                    <span>सरकारी योजना सहायक</span>
+                    <button id="speak-btn" class="speak-button" title="Listen to response">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+                <div class="message-content" id="ai-text"></div>
+                <div class="source-indicator" id="source-indicator"></div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div class="loading" id="loading" style="display: none;">
+                <div class="loading-spinner"></div>
+                <span>Processing your question...</span>
+            </div>
+        </div>
+
+        <!-- Error Display -->
+        <div class="error-message" id="error-message" style="display: none;">
+            <i class="fas fa-exclamation-triangle"></i>
+            <span id="error-text"></span>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>
+                <i class="fas fa-info-circle"></i>
+                This assistant helps you find information about Indian government schemes. 
+                Speak your question in Hindi, English, or Gujarati.
+            </p>
+            <div class="disclaimer">
+                <small>
+                    Disclaimer: Please verify all information from official government sources. 
+                    This is an AI-powered assistant and may not always be 100% accurate.
+                </small>
+            </div>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+{
+  "schemes": [
+    {
+      "scheme_name": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+      "description": "Direct income support to farmers",
+      "eligibility": "Small and marginal farmers with cultivable land up to 2 hectares",
+      "benefits": "Rs. 6000 per year in three equal installments of Rs. 2000 each",
+      "how_to_apply": "Apply online at pmkisan.gov.in or visit nearest Common Service Center",
+      "official_link": "https://pmkisan.gov.in/",
+      "category": "agriculture"
+    },
+    {
+      "scheme_name": "Pradhan Mantri Awas Yojana (PMAY)",
+      "description": "Housing for all by 2022",
+      "eligibility": "Families without a pucca house and annual income below specified limits",
+      "benefits": "Financial assistance for construction/enhancement of houses",
+      "how_to_apply": "Apply online at pmaymis.gov.in or through designated nodal agencies",
+      "official_link": "https://pmaymis.gov.in/",
+      "category": "housing"
+    },
+    {
+      "scheme_name": "Ayushman Bharat - Pradhan Mantri Jan Arogya Yojana",
+      "description": "Health insurance coverage for economically vulnerable families",
+      "eligibility": "Families identified through Socio-Economic Caste Census (SECC) 2011",
+      "benefits": "Health cover of Rs. 5 lakh per family per year",
+      "how_to_apply": "Eligible families automatically covered, get card from authorized centers",
+      "official_link": "https://pmjay.gov.in/",
+      "category": "health"
+    },
+    {
+      "scheme_name": "Pradhan Mantri Matru Vandana Yojana",
+      "description": "Maternity benefit for pregnant women and lactating mothers",
+      "eligibility": "Pregnant women and lactating mothers excluding those in regular employment",
+      "benefits": "Cash incentive of Rs. 5000 in three installments",
+      "how_to_apply": "Apply through Anganwadi Centers or health facilities",
+      "official_link": "https://wcd.nic.in/schemes/pradhan-mantri-matru-vandana-yojana",
+      "category": "women"
+    },
+    {
+      "scheme_name": "National Social Assistance Programme (NSAP)",
+      "description": "Social security for elderly, widows, and disabled persons",
+      "eligibility": "BPL families with elderly (60+), widows, or disabled members",
+      "benefits": "Monthly pension ranging from Rs. 200 to Rs. 500",
+      "how_to_apply": "Apply through District Collector or Block Development Office",
+      "official_link": "https://nsap.nic.in/",
+      "category": "social_security"
+    },
+    {
+      "scheme_name": "Beti Bachao Beti Padhao",
+      "description": "Scheme to address declining child sex ratio and empower girl children",
+      "eligibility": "All girl children and families",
+      "benefits": "Educational support, awareness campaigns, and skill development",
+      "how_to_apply": "Participate in local programs or contact district administration",
+      "official_link": "https://wcd.nic.in/bbbp-scheme",
+      "category": "women"
+    },
+    {
+      "scheme_name": "Pradhan Mantri Fasal Bima Yojana",
+      "description": "Crop insurance scheme for farmers",
+      "eligibility": "All farmers growing notified crops in notified areas",
+      "benefits": "Insurance coverage for crop loss due to natural calamities",
+      "how_to_apply": "Apply through banks, insurance companies, or Common Service Centers",
+      "official_link": "https://pmfby.gov.in/",
+      "category": "agriculture"
+    },
+    {
+      "scheme_name": "National Pension System (NPS)",
+      "description": "Retirement savings scheme",
+      "eligibility": "All Indian citizens aged 18-70 years",
+      "benefits": "Regulated pension fund with tax benefits",
+      "how_to_apply": "Apply online at enps.nsdl.com or through authorized centers",
+      "official_link": "https://www.npscra.nsdl.co.in/",
+      "category": "social_security"
+    }
+  ]
+}
