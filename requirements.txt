@@ -1,0 +1,27 @@
+# Sarkari Yojana Sahayak - Government Scheme Assistant
+# Python dependencies for the Flask-based multilingual AI application
+
+# Web Framework
+Flask>=3.1.1
+gunicorn>=23.0.0
+
+# Database
+Flask-SQLAlchemy>=3.1.1
+psycopg2-binary>=2.9.10
+
+# AI and API Integration
+groq>=0.30.0
+requests>=2.32.4
+
+# Validation
+email-validator>=2.2.0
+
+# Installation Instructions:
+# To install these dependencies, you can use:
+# pip install -r dependencies.txt
+# 
+# Or install them individually:
+# pip install Flask>=3.1.1 gunicorn>=23.0.0 Flask-SQLAlchemy>=3.1.1 psycopg2-binary>=2.9.10 groq>=0.30.0 requests>=2.32.4 email-validator>=2.2.0
+#
+# Note: This project uses uv for package management in the Replit environment.
+# The actual dependencies are managed in pyproject.toml file.
