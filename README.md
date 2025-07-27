@@ -7,30 +7,42 @@
 ![Flask](https://img.shields.io/badge/Flask-2.0+-green?style=flat-square&logo=flask)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat-square&logo=javascript)
 ![License](https://img.shields.io/badge/License-MIT-red?style=flat-square)
+![Real-time](https://img.shields.io/badge/Real--time-Scraping-orange?style=flat-square)
 
-**A multilingual, voice-enabled AI assistant for Indian government schemes**
+**A multilingual, voice-enabled AI assistant for Indian government schemes with real-time data scraping**
 
 [Features](#features) • [Architecture](#architecture) • [Installation](#installation) • [Usage](#usage) • [API](#api)
 
 </div>
 
+🌐 [Visit Live Website](https://sarkari-yojna-sahayak.onrender.com/)
+
 ---
 
 ## 🎯 Overview
 
-Sarkari Yojana Sahayak is a comprehensive AI-powered web application designed to help users discover and understand Indian government schemes. The application supports **Hindi**, **English**, and **Gujarati** languages with complete voice interaction capabilities, allowing users to speak their queries and receive spoken responses about various government welfare programs.
+Sarkari Yojana Sahayak is a comprehensive AI-powered web application designed to help users discover and understand Indian government schemes. The application supports **Hindi**, **English**, and **Gujarati** languages with complete voice interaction capabilities, allowing users to speak their queries and receive spoken responses about various government welfare programs. **All scheme data is scraped in real-time from official government websites** to ensure the most current and accurate information is always provided.
 
 ### 🌟 Key Highlights
+- 🕷️ **Real-time Government Website Scraping** - Fresh data for every query
 - 🗣️ **Voice Recognition & Text-to-Speech** in 3 languages
 - 🤖 **AI-Powered Responses** using Groq Mixtral model
-- 📊 **Authentic Government Data** from official sources
+- 📊 **Authentic Government Data** from official sources (scraped live)
 - 🎨 **Modern Glassmorphism UI** with responsive design
 - 🔄 **Dual Input Methods** - Voice and Text input
 - 🎯 **Pure Language Responses** - No language mixing
+- ⚡ **Always Updated Information** - No stale data
 
 ---
 
 ## 🚀 Features
+
+### 🕷️ Real-time Web Scraping System
+- **Live Data Extraction**: Scrapes data directly from government websites during query processing
+- **Multiple Source Integration**: Covers 15+ official government portals simultaneously
+- **Smart Content Parsing**: Extracts scheme details, eligibility criteria, and application processes
+- **Automatic Content Validation**: Ensures data authenticity from official sources
+- **Intelligent Fallback**: Multiple scraping strategies for robust data extraction
 
 ### 🎤 Voice Interface
 - **Speech Recognition**: Browser-native Web Speech API supporting hi-IN, en-IN, and gu-IN
@@ -47,20 +59,21 @@ Sarkari Yojana Sahayak is a comprehensive AI-powered web application designed to
 ### 🤖 AI Integration
 - **LLM Provider**: Groq API with Mixtral-8x7B model
 - **Context Awareness**: Language-specific system prompts
-- **Intelligent Fallback**: Local scheme data takes precedence over AI responses
+- **Intelligent Enhancement**: Real-time scraped data combined with AI explanations
 - **Smart Query Processing**: Advanced keyword matching and categorization
 
-### 💾 Government Schemes Database
-- **Authentic Data**: Sourced from official government websites
+### 💾 Government Schemes Database (Real-time Scraped)
+- **Live Data**: All scheme information scraped in real-time from official government websites
 - **Comprehensive Coverage**: Agriculture, Housing, Health, Women, Social Security, Education
-- **Multilingual Content**: Scheme information in all three supported languages
-- **Real-time Search**: Instant matching based on keywords and categories
+- **Multilingual Content**: Scheme information available in all three supported languages
+- **Always Current**: No outdated information - data is fetched fresh for each query
 
 ### 🎨 User Interface
 - **Glassmorphism Design**: Modern, translucent interface elements
 - **Responsive Layout**: Works seamlessly on desktop and mobile devices
 - **Dual Input Modes**: Toggle between voice and text input
 - **Interactive Elements**: Hover effects, animations, and feedback
+- **Real-time Indicators**: Shows when data is being scraped from live sources
 - **Accessibility**: High contrast colors and clear typography
 
 ---
@@ -91,20 +104,25 @@ Sarkari Yojana Sahayak is a comprehensive AI-powered web application designed to
 │                              │                             │
 │                              ▼                             │
 │  ┌─────────────────┐  ┌─────────────────┐                 │
-│  │ Local Schemes   │  │  Language       │                 │
-│  │ Database (JSON) │  │  Processing     │                 │
+│  │ Real-time Web   │  │  Language       │                 │
+│  │ Scraper Engine  │  │  Processing     │                 │
 │  └─────────────────┘  └─────────────────┘                 │
 └─────────────────────────────────────────────────────────────┘
-                              │ External API Call
-                              ▼
-┌─────────────────────────────────────────────────────────────┐
-│                    GROQ AI SERVICE                         │
-├─────────────────────────────────────────────────────────────┤
-│  ┌─────────────────┐  ┌─────────────────┐                 │
-│  │ Mixtral-8x7B    │  │  Language       │                 │
-│  │ Language Model  │  │  Generation     │                 │
-│  └─────────────────┘  └─────────────────┘                 │
-└─────────────────────────────────────────────────────────────┘
+          │                           │ External API Call
+          ▼                           ▼
+┌──────────────────────┐    ┌─────────────────────────────────┐
+│ GOVERNMENT WEBSITES  │    │          GROQ AI SERVICE       │
+├──────────────────────┤    ├─────────────────────────────────┤
+│ • pmay.gov.in        │    │  ┌─────────────────┐            │
+│ • mygov.in           │    │  │ Mixtral-8x7B    │            │
+│ • janaushadhi.gov.in │    │  │ Language Model  │            │
+│ • nsap.nic.in        │    │  └─────────────────┘            │
+│ • pmkisan.gov.in     │    │  ┌─────────────────┐            │
+│ • ayushmanbharat.    │    │  │  Language       │            │
+│   pm.gov.in          │    │  │  Generation     │            │
+│ • mksy.gov.in        │    │  └─────────────────┘            │
+│ • 15+ More Sites     │    │                                 │
+└──────────────────────┘    └─────────────────────────────────┘
 ```
 
 ### Data Flow Diagram
@@ -131,37 +149,34 @@ Sarkari Yojana Sahayak is a comprehensive AI-powered web application designed to
 └─────────────────┘
         │
         ▼
-    ┌─────────┐    ┌─────────────────┐
-    │ Local   │───▶│ Scheme Found?   │
-    │Database │    │                 │
-    │ Search  │    └─────────────────┘
-    └─────────┘           │
-                         ▼
-                    ┌─────────┐
-              Yes ◄─│ Match?  │─► No
-                    └─────────┘
-                         │               │
-                         ▼               ▼
-                ┌─────────────────┐ ┌─────────────────┐
-                │ Return Local    │ │   Call Groq     │
-                │ Scheme Data     │ │   AI Service    │
-                └─────────────────┘ └─────────────────┘
-                         │               │
-                         └───────┬───────┘
-                                 ▼
-                ┌─────────────────────────────────┐
-                │     Format Response in          │
-                │    Selected Language            │
-                └─────────────────────────────────┘
-                                 │
-                                 ▼
-                ┌─────────────────────────────────┐
-                │    Text-to-Speech Synthesis     │ ◄──── Voice Selection
-                │    (if voice output enabled)    │       Language Matching
-                └─────────────────────────────────┘
-                                 │
-                                 ▼
-                         Display Result
+┌─────────────────────────────────────┐
+│        REAL-TIME SCRAPING           │
+│                                     │
+│ 1. Identify relevant gov websites   │
+│ 2. Deploy multiple scrapers         │
+│ 3. Extract fresh scheme data        │
+│ 4. Parse and validate content       │
+│ 5. Combine data from all sources    │
+└─────────────────────────────────────┘
+        │
+        ▼
+┌─────────────────────────────────────┐
+│     AI ENHANCEMENT                  │
+│                                     │
+│ • Combine scraped data with AI      │
+│ • Add context and explanations      │
+│ • Format in selected language       │
+│ • Provide application guidance      │
+└─────────────────────────────────────┘
+        │
+        ▼
+┌─────────────────────────────────────┐
+│    Text-to-Speech Synthesis         │ ◄──── Voice Selection
+│    (if voice output enabled)        │       Language Matching
+└─────────────────────────────────────┘
+        │
+        ▼
+         Display Result
 ```
 
 ### Component Architecture
@@ -179,7 +194,7 @@ Frontend Components:
 │   └── Send Button
 ├── Response Display
 │   ├── AI Response Container
-│   ├── Source Indicator
+│   ├── Source Indicator (Live Scraped)
 │   └── Speech Controls
 └── Sample Questions
 
@@ -188,13 +203,14 @@ Backend Components:
 ├── Route Handlers
 │   ├── Index Route (/)
 │   └── Query Route (/query)
+├── Real-time Web Scraper Engine
+│   ├── Government Website Scrapers
+│   ├── Content Parser
+│   └── Data Validator
 ├── Query Processor
 │   ├── Language Detection
 │   ├── Keyword Matching
 │   └── Category Classification
-├── Scheme Database Manager
-│   ├── JSON Data Loader
-│   └── Search Engine
 ├── AI Integration
 │   ├── Groq Client
 │   └── Response Formatter
@@ -214,7 +230,7 @@ Backend Components:
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone SimranShaikh20/Sarkari-Yojna-Sahayak
    cd sarkari-yojana-sahayak
    ```
 
@@ -243,6 +259,8 @@ Backend Components:
 Flask>=2.0.0
 groq>=0.4.0
 requests>=2.25.0
+beautifulsoup4>=4.10.0
+lxml>=4.6.0
 gunicorn>=20.0.0
 ```
 
@@ -254,14 +272,16 @@ gunicorn>=20.0.0
 1. **Select Language**: Choose from Hindi, English, or Gujarati
 2. **Click Microphone**: Press the microphone button to start recording
 3. **Speak Clearly**: Ask your question about government schemes
-4. **Listen to Response**: The AI will respond in your selected language
-5. **Use Controls**: Stop, replay, or pause the voice response
+4. **Real-time Data**: System scrapes live data from government websites
+5. **Listen to Response**: The AI will respond with fresh information in your selected language
+6. **Use Controls**: Stop, replay, or pause the voice response
 
 ### Text Input Mode
 1. **Switch to Text Mode**: Click the "Text Input" toggle button
 2. **Type Question**: Enter your question in the text field
 3. **Submit**: Press Enter or click the send button
-4. **Read Response**: View the response with voice playback option
+4. **Live Scraping**: Watch as system fetches fresh data from official sources
+5. **Read Response**: View the response with live scraped data and voice playback option
 
 ### Sample Questions
 - **Hindi**: "प्रधानमंत्री आवास योजना के बारे में बताएं"
@@ -274,7 +294,7 @@ gunicorn>=20.0.0
 
 ### POST /query
 
-Submit a query about government schemes.
+Submit a query about government schemes (with real-time scraping).
 
 **Request Body:**
 ```json
@@ -287,9 +307,11 @@ Submit a query about government schemes.
 **Response:**
 ```json
 {
-  "response": "योजना का नाम: राष्ट्रीय सामाजिक सहायता कार्यक्रम...",
+  "response": "योजना का नाम: राष्ट्रीय सामाजिक सहायता कार्यक्रम... (scraped from nsap.nic.in)",
   "language": "hindi",
-  "source": "local"
+  "source": "live_scraped",
+  "scraped_from": ["nsap.nic.in", "mygov.in"],
+  "scraped_at": "2024-01-15T10:30:00Z"
 }
 ```
 
@@ -298,13 +320,15 @@ Submit a query about government schemes.
 - `language` (string): Response language - "english", "hindi", or "gujarati"
 
 **Response Fields:**
-- `response` (string): Detailed information about the scheme
+- `response` (string): Detailed information about the scheme (from live scraped data)
 - `language` (string): Language of the response
-- `source` (string): Data source - "local" for database, "ai" for Groq API
+- `source` (string): "live_scraped" for real-time data, "ai" for AI-enhanced responses
+- `scraped_from` (array): List of government websites scraped for the response
+- `scraped_at` (string): Timestamp when data was scraped
 
 ---
 
-## 📊 Government Schemes Database
+## 📊 Government Schemes Database (Real-time Scraped)
 
 ### Supported Categories
 - 🌾 **Agriculture**: Farmer welfare, crop insurance, subsidies
@@ -314,14 +338,29 @@ Submit a query about government schemes.
 - 👴 **Social Security**: Pension schemes, elderly care
 - 🎓 **Education**: Scholarships, skill development
 
-### Data Sources
-All scheme information is sourced from official government websites:
-- Ministry of Rural Development
-- Ministry of Health and Family Welfare
-- Ministry of Women and Child Development
-- Ministry of Agriculture and Farmers Welfare
-- Ministry of Housing and Urban Affairs
-- Ministry of Education
+### Real-time Data Sources
+All scheme information is scraped live from official government websites:
+- **pmay.gov.in** - Pradhan Mantri Awas Yojana
+- **mygov.in** - Central Government Schemes Portal
+- **janaushadhi.gov.in** - PM Bharatiya Janaushadhi Pariyojana
+- **nsap.nic.in** - National Social Assistance Programme
+- **pmkisan.gov.in** - PM-KISAN Farmer Benefit Scheme
+- **ayushmanbharat.pm.gov.in** - Ayushman Bharat Health Scheme
+- **mksy.gov.in** - Employment Guarantee Schemes
+- **Ministry of Rural Development** - Rural development schemes
+- **Ministry of Health and Family Welfare** - Healthcare programs
+- **Ministry of Women and Child Development** - Women and child welfare
+- **Ministry of Agriculture and Farmers Welfare** - Agricultural schemes
+- **Ministry of Housing and Urban Affairs** - Housing and urban development
+- **Ministry of Education** - Educational schemes and scholarships
+- **15+ Additional Official Government Portals**
+
+### Scraping Features
+- **Real-time Extraction**: Fresh data scraped for every user query
+- **Multi-source Aggregation**: Combines information from multiple official sources
+- **Data Validation**: Ensures authenticity by cross-referencing multiple sources
+- **Language Processing**: Automatically translates scraped content to user's preferred language
+- **Content Parsing**: Intelligently extracts scheme details, eligibility, and application processes
 
 ---
 
@@ -332,6 +371,7 @@ All scheme information is sourced from official government websites:
 - **Gradient Backgrounds**: Dynamic color schemes
 - **Responsive Typography**: Adaptive font sizes and spacing
 - **Interactive Animations**: Hover effects and transitions
+- **Live Data Indicators**: Visual cues showing real-time scraping status
 - **Accessibility**: High contrast modes and screen reader support
 
 ### Browser Compatibility
@@ -365,25 +405,20 @@ The application automatically detects and configures the best available voices f
 
 ## 🚀 Deployment
 
-### Replit Deployment
-1. Import the project to Replit
-2. Set environment variables in Secrets
-3. Click "Deploy" button for public access
+### Render Deployment
+1. Connect your GitHub repository to Render
+2. Create a new Web Service
+3. Set the following configuration:
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `gunicorn --bind 0.0.0.0:$PORT main:app`
+4. Add environment variables in Render dashboard:
+   - `GROQ_API_KEY`: Your Groq API key
+   - `SESSION_SECRET`: Your session secret key
+5. Deploy and get your live URL
 
-### Local Production
+### Local Development
 ```bash
-gunicorn --bind 0.0.0.0:5000 --reuse-port --reload main:app
-```
-
-### Docker (Optional)
-```dockerfile
-FROM python:3.9-slim
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
-EXPOSE 5000
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "main:app"]
+python main.py
 ```
 
 ---
@@ -404,6 +439,7 @@ We welcome contributions! Please follow these steps:
 - Maintain responsive design principles
 - Add appropriate comments and documentation
 - Test voice features across different browsers
+- Ensure web scraping follows ethical practices and respects robots.txt
 
 ---
 
@@ -423,20 +459,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📞 Support
-
-For support, questions, or feature requests:
-
-- 📧 Email: support@sarkariyojana.com
-- 🐛 Issues: [GitHub Issues](issues)
-- 💬 Discussions: [GitHub Discussions](discussions)
-
----
 
 <div align="center">
 
 **Built with ❤️ for the people of India**
 
-*Empowering citizens with easy access to government scheme information*
+*Empowering citizens with easy access to real-time government scheme information*
 
 </div>
