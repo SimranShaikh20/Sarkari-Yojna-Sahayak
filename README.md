@@ -14,8 +14,17 @@
 [Features](#features) • [Architecture](#architecture) • [Installation](#installation) • [Usage](#usage) • [API](#api)
 
 </div>
+<div align="center">
 
-🌐 [Visit Live Website](https://sarkari-yojna-sahayak.onrender.com/)
+🌐 <a href="https://sarkari-yojna-sahayak.onrender.com/" target="_blank"><strong>Visit Live Website</strong></a>
+
+<br><br>
+
+<img src="images/img1.PNG" alt="Screenshot 1" width="600"/>
+<br>
+<img src="images/img2.PNG" alt="Screenshot 2" width="600"/>
+
+</div>
 
 ---
 
@@ -391,8 +400,6 @@ All scheme information is scraped live from official government websites:
 |----------|-------------|----------|
 | `GROQ_API_KEY` | Groq API key for AI responses | Yes |
 | `SESSION_SECRET` | Flask session secret key | Yes |
-| `FLASK_ENV` | Environment mode (development/production) | No |
-| `PORT` | Application port (default: 5000) | No |
 
 ### Voice Configuration
 The application automatically detects and configures the best available voices for each language:
